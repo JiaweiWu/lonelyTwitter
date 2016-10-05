@@ -3,10 +3,18 @@ package ca.ualberta.cs.lonelytwitter;
 import java.util.Date;
 
 /**
- * Created by jwu5 on 9/13/16.
+ * Class represent Sad mood
+ *
+ * @author Jiawei
+ * @see CurrentMood
  */
 public class Happy extends CurrentMood {
 
+    /**
+     * Instantiates a new Happy.
+     *
+     * @param date the date
+     */
     public Happy(Date date) {
 
         super(date);

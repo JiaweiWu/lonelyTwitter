@@ -1,3 +1,12 @@
+/**
+ * Copyright (c) 2016 Jiawei Wu CMPUT 301, University of Alberta - All Rights Reserved.
+ * You man use, distribute, and copy all or parts of this code under tmers of condition of
+ * University of Alberta and the code of Student Behaviour
+ * You can find the copy of licence at http://www.github.com/JiaweiWu
+ * for further information. Contact me at jwu5@ualberta.ca
+ *
+ */
+
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
@@ -10,10 +19,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,8 +31,29 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class LonelyTwitterActivity extends Activity {
 
+/**
+ * This is the main activity (view class) of LonelyTwitter project. Handles all user interactions and file IO
+ * <pre>All the files are stored in the form of GSON files stored in Emulator, accessible from Android
+ * Device Manager</pre>
+ * <code>
+ * Pseudo Code Sample: <br>
+ * open some files ... <br>
+ * attach some text ...<br>
+ * close the file ... <br>
+ * </code>
+ *
+ * @author Jiawei
+ * @see Activity
+ * @see NormalTweet
+ * @since 1.0
+ */
+public class LonelyTwitterActivity extends Activity {
+	/**
+	 * This is the file name that is being saved/loaded and contains all the tweets
+	 * @see #loadFromFile()
+	 * @see #saveInFile()
+	 */
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
@@ -81,6 +109,12 @@ public class LonelyTwitterActivity extends Activity {
 		oldTweetsList.setAdapter(adapter);
 	}
 
+	/**
+	 * This method loads the tweets from FILE_NAME (file.sav) and saves it into
+	 *
+	 * @throws RuntimeException run time exception
+	 *
+	 */
 	private void loadFromFile() {
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
