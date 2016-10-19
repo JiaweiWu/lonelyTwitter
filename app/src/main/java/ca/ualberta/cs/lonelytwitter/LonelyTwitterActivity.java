@@ -10,12 +10,12 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,9 +59,9 @@ public class LonelyTwitterActivity extends Activity {
 				NormalTweet newTweet = new NormalTweet(text);
 				tweetList.add(newTweet);
 				adapter.notifyDataSetChanged();
-				//saveInFile(); // TODO replace this with elastic search
-				ElasticsearchTweetController.AddTweetTask addTweetTask = new ElasticsearchTweetController.AddTweetTask();
-				addTweetTask.execute(newTweet);
+				// saveInFile(); // TODO replace this with elastic search
+				ElasticsearchTweetController.AddTweetsTask addTweetsTask = new ElasticsearchTweetController.AddTweetsTask();
+				addTweetsTask.execute(newTweet);
 			}
 		});
 
@@ -76,14 +76,14 @@ public class LonelyTwitterActivity extends Activity {
 		});
 
 		oldTweetsList.setOnItemClickListener(new
-				AdapterView.OnItemClickListener(){
-					public void onItemClick(AdapterView<?> parent, View view,
-											int position ,long id){
-						Intent intent = new Intent(activity, EditTweetActivity.class);
-						startActivity(intent);
-					}
+													 AdapterView.OnItemClickListener(){
+														 public void onItemClick(AdapterView<?> parent, View view,
+																				 int position ,long id){
+															 Intent intent = new Intent(activity, EditTweetActivity.class);
+															 startActivity(intent);
+														 }
 
-				});
+													 });
 
 
 	}
@@ -92,14 +92,14 @@ public class LonelyTwitterActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		//loadFromFile(); // TODO replace this with elastic search
-		ElasticsearchTweetController.GetTweetTask getTweetTask = new ElasticsearchTweetController.GetTweetTask();
-		getTweetTask.execute();
+		// loadFromFile(); // TODO replace this with elastic search
+		ElasticsearchTweetController.GetTweetsTask getTweetsTask = new ElasticsearchTweetController.GetTweetsTask();
+		getTweetsTask.execute("");
 		try {
-			tweetList = getTweetTask.get();
+			tweetList = getTweetsTask.get();
 		}
 		catch (Exception e) {
-
+			Log.i("Error", "Failed to get the tweets out of the async object.");
 		}
 		adapter = new ArrayAdapter<NormalTweet>(this,
 				R.layout.list_item, tweetList);
